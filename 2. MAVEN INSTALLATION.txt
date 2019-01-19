@@ -1,0 +1,60 @@
+INSTALLATION ON CENTOS/RHEL:-
+============================
+
+1. check if maven is installed
+   #mvn -version
+
+
+2. cd /usr/local
+
+
+3. go to apache maven site and download tar.gz file
+   #wget http://www-us.apache.org/dist/maven/maven-3/3.5.3/binaries/apache-maven-3.5.3-bin.tar.gz
+
+
+4. now extract the zip file	
+   #tar -zxvf apache-maven-3.5.3-bin.tar.gz
+
+
+5. cd apache-maven-3.5.3/
+
+
+6. execute pwd and copy paste the path in maven.sh
+
+
+7. #vi /etc/profile.d/maven.sh
+-----------------------------------------------
+export M2_HOME=/usr/local/apache-maven-3.5.3/
+export M2=$M2_HOME/bin
+export PATH=$M2:$PATH
+------------------------------------------------
+
+
+8. #source /etc/profile.d/maven.sh
+
+
+9. #mvn -version
+
+
+10. #echo $M2_HOME
+
+
+
+
+==============================
+INSTALLATION ON UBUNTU:-
+==============================
+
+1.apt-get install -y maven
+
+2.vi /etc/environment
+--------------------------------------------
+M2_HOME="/usr/share/maven"
+PATH="${M2_HOME}/bin:${PATH}"
+--------------------------------------------
+
+3.source /etc/environment
+
+4.echo $M2_HOME
+
+5.mvn -version
