@@ -1,0 +1,76 @@
+WE CAN USE MAVEN WITH DOCKER IN MANY WAYS:-
+
+----------------------------------------
+(i) using docker file in maven project:-
+----------------------------------------        
+*In github we have this kind of structure(src code, pom.xml, docker file). 
+
+     demo
+     |  |__src
+     |       |__main
+     |       |     |__java
+     |       |           |__org
+     |       |                |__demo
+     |       |                      |__Application.java
+     |	     |
+     |	     |__test
+     |
+     |__Dockerfile
+     |__pom.xml
+
+
+1) navigate to the project
+   #cd demo
+
+2) execute a following command to create a build artifact in target directory
+   #mvn clean install
+
+3) execute the following command to create a docker image(your build artifact will be copied into docker image)
+   #docker build -f Dockerfile -t ImageName .
+
+4) now run the container and curl it
+   #docker run -p hostport:containerport -t ImageName
+
+*you should know target location before you write dockerfile
+
+
+-------------------------------------
+(ii) using docker plugin in pom.xml:-
+------------------------------------- 
+    we add docker plugin in maven pom.xml. Building a Dockerfile from Maven, after the build
+we will get docker image
+
+vi pom.xml
+-----------------------------------------------------------------------------------------------
+<plugin>
+    <groupId>com.spotify</groupId>
+    <artifactId>docker-maven-plugin</artifactId>-------------->DOCKER-MAVEN PLUGIN
+    <version>0.4.10</version>----------------------------->PLUGIN VERSION
+    <configuration>
+        <imageName>hotblac/${project.artifactId}</imageName>-------->NAME OF THE IMAGE TO BE BUILT
+        <dockerDirectory>${project.basedir}/docker</dockerDirectory>--------->LOCATION OF DOCKERFILE
+    </configuration>
+</plugin>
+-----------------------------------------------------------------------------------------------
+
+1. navigate to the project
+   #cd ProjectName
+
+2. when you execute the following command, docker image is created
+   #mvn clean package docker:build
+
+3. now check docker images and spinup a container
+   #docker images
+   #docker run -p hostport:containerport -t ImageName
+
+
+-----------------------------------------
+(iii) running maven in docker container:-
+-----------------------------------------
+Maven will run inside docker container
+
+docker run -it --rm \
+       -v "$(pwd)":/opt/maven \
+       -w /opt/maven \
+       maven:3.2-jdk-7 \
+       mvn clean install

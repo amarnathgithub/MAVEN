@@ -1,0 +1,30 @@
+MAVEN-DOCKER PROJECT:-
+====================
+
+1. create a directory and clone 
+   #git clone https://github.com/Programmingatkstark/Build-Docker-image-with-maven-plugin.git
+
+
+2. now navigate to the directory where you find pom.xmlthere you run below command
+   #mvn clean
+
+
+3. now run followig command
+   #mvn docker:build
+
+
+4. you will see a new docker image
+   #docker image ls
+
+
+5. now run the image
+   #docker run -p 8080:8080 -t dockerexample 
+
+
+6. now open the browser and hit following to display webpage
+   #ipadress:8080
+
+
+
+*instead of doing mvn clean and mvn docker build you can execute one time by
+#mvn clean docker:build
